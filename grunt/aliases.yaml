@@ -28,6 +28,7 @@ prod:makesource:
 
 build:deploy:
   - 'log'
+  - 'shell'
   - 'prod:makesource'
 
 # ===================> DEFAULT IN PRODUZIONE #########
