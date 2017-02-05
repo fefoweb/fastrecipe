@@ -3,6 +3,7 @@
 namespace RecipeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class Recipe
@@ -14,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="recipe")
  * @ORM\Entity(repositoryClass="RecipeBundle\Repository\RecipeRepository")
+ * @UniqueEntity("name")
  */
 class Recipe
 {
@@ -25,10 +27,6 @@ class Recipe
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Ingredient", mappedBy="recipe")
-     */
 
     /**
      *

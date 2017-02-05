@@ -3,6 +3,7 @@
 namespace RecipeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class Ingredient
@@ -14,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="ingredient")
  * @ORM\Entity(repositoryClass="RecipeBundle\Repository\IngredientRepository")
+ * @UniqueEntity("name")
  */
 class Ingredient
 {
