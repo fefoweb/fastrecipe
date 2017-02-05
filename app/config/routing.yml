@@ -1,0 +1,4 @@
+recipe:
+    resource: "@RecipeBundle/Controller/"
+    type:     annotation
+    prefix:   /

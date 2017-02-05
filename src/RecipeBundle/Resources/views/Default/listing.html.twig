@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container listing">
+        <ul>
+        {% for recipe in recipes %}
+            <li><strong>{{ recipe.name }}</strong> - {{ recipe.desc }}: {{ recipe.ing }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

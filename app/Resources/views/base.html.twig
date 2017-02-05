@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}simple fast editor for recipe | fastRecipe!{% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="fefoweb">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block stylesheets %}
+        <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700|Open+Sans+Condensed:300,700|Open+Sans:300,400,400i,600" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/fastRecipe.min.css') }}" />
+        <!--[if IE]><link rel="stylesheet" href="{{ asset('assets/css/ie-style.css') }}"><![endif]-->
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('asset/img/favicon.ico') }}"/>
+</head>
+<body>
+<div class="wrapper">
+    <div class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <div class="header-contact">
+                            <span><i class="fa fa-cutlery red"></i> fast and simple recipe!</span>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-sm-8">
+                        <div class="header-search pull-right">
+                            <form class="form" role="form">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search...">
+                                    <span class="input-group-btn">
+											<button class="btn btn-default" type="button">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-5">
+                    <a href="index.html">
+                        <div class="logo">
+                            <img class="img-responsive" src="{{ asset('assets/img/logo.png') }}" alt=""/>
+                            <h1>fastRecipe</h1>
+                            <p>Manage your recipe, simply!</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-8 col-sm-7">
+                    <nav class="navbar navbar-default navbar-right" role="navigation">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                        data-target="#bs-example-navbar-collapse-1">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="index.html"><img src="{{ asset('assets/img/nav-menu/nav1.jpg') }}" class="img-responsive"
+                                                                  alt=""/> Home</a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img
+                                                src="{{ asset('assets/img/nav-menu/nav5.jpg') }}" class="img-responsive" alt=""/> Recipe <b
+                                                class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="error.html">Add</a></li>
+                                            <li><a href="recipe.html">Last Recipes</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="aboutus.html"><img src="{{ asset('assets/img/nav-menu/nav6.jpg') }}" class="img-responsive"
+                                                                    alt=""/> About</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="banner padd10">
+        <div class="container">
+            <img class="img-responsive" src="{{ asset('assets/img/crown-white.png') }}" alt=""/>
+            <h2 class="white">Fast Recipe</h2>
+            <ol class="breadcrumb">
+                <li><a href="/">Home</a></li>
+                <li class="active">Page Title</li>
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="inner-page padd">
+        {% block body %}{% endblock %}
+    </div>
+
+    <div class="footer padd">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <div class="footer-widget">
+                        <div class="logo">
+                            <img class="img-responsive" src="{{ asset('assets/img/logo.png') }}" alt=""/>
+                            <h1>fastRecipe</h1>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                            labore et magna aliqua.</p>
+                        <hr/>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <div class="footer-widget">
+                        <h4>Contact... me</h4>
+                        <div class="contact-details">
+                            <div class="col-md-4 col-xs-12">
+                                <i class="fa fa-map-marker br-red"></i> <span>Terni, Umbria<br/>05100 - Italy</span>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="col-md-4 col-xs-12">
+                                <i class="fa fa-phone br-green"></i> <span>+39 328.6976720</span>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="col-md-4 col-xs-12">
+                                <i class="fa fa-envelope-o br-lblue"></i> <span><a href="stefanofra@gmail.com">stefanofra@gmail.com</a></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <hr class="right">
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; Copyright 2017 <a href="https://www.linkedin.com/in/stefanofrasca" target="_blank">fefoweb</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<span class="totop"><a href="#"><i class="fa fa-angle-up"></i></a></span>
+
+{% block javascripts %}
+    <script src="{{ asset('assets/js/fastRecipe.min.js') }}"></script>
+{% endblock %}
+</body>
+</html>
+

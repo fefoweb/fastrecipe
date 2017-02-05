@@ -1,0 +1,40 @@
+#### DEVEL TASK #####
+dev:sourceclean:
+  - 'newer:uglify'
+  - 'cssmin'
+  #- 'imagemin'
+
+dev:makesource:
+  - 'clean:build'
+  - 'dev:sourceclean'
+  - 'newer:copy:font'
+  - 'newer:copy:images'
+  - 'newer:copy:css'
+
+# ===================> DEFAULT IN SVILUPPO #########
+dev:deploy:
+  - 'log'
+  - 'shell'
+  - 'dev:makesource'
+  - 'watch'
+
+default:
+  - 'dev:deploy'
+
+#### PRODUCTION TASK #####
+
+prod:makesource:
+  - 'dev:sourceclean'
+
+build:deploy:
+  - 'log'
+  - 'prod:makesource'
+
+# ===================> DEFAULT IN PRODUZIONE #########
+#deploy:
+#   - 'log-deploy'
+#   - 'build:deploy'
+#   - 'ftp_push:other'
+#   - 'ftp_push:asset'
+#   - 'ftp_push:web'
+#   - 'tag:version'
