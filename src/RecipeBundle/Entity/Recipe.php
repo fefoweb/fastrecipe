@@ -30,7 +30,7 @@ class Recipe
 
     /**
      *
-     * @ORM\ManyToMany(targetEntity="Ingredient", inversedBy="recipes")
+     * @ORM\ManyToMany(targetEntity="Ingredient", inversedBy="recipes", cascade={"persist"})
      * @ORM\JoinTable(
      *  name="recipe_x_ingredient",
      *  joinColumns={
@@ -250,5 +250,16 @@ class Recipe
     public function getIngredients()
     {
         return $this->ingredients;
+    }
+
+    /**
+     * Method getNumberIngredients
+     *
+     * Return number of ingredients related to this Recipe
+     *
+     * @return int
+     */
+    public function getNumberIngredients(){
+        return count($this->ingredients);
     }
 }

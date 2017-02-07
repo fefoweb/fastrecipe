@@ -1,46 +1,60 @@
-/* *************************************** */ 
-/* Cart Button Drop Down */
-/* *************************************** */  
+var UIManager = function(){
+	var options;
 
-$(document).ready(function() {
-	$('.btn-cart-md .cart-link').click(function(e){
-		e.preventDefault();
-		var $dd_menu = $('.btn-cart-md .cart-dropdown')
-		if ($dd_menu.hasClass('open')) {
-			$dd_menu.fadeOut();
-			$dd_menu.removeClass('open');
-		} else {
-			$dd_menu.fadeIn();
-			$dd_menu.addClass('open');
-		}
-	});
-});
+	var init = function(opt){
+		options = opt || {};
+		eventHandler();
+	};
+	var addOption = function(key, value){
+		options[key] = value;
+	};
+	var eventHandler = function(){
+		toTopHandler();
+		$('.my-tooltip').tooltip();
+		addRecipeHandler();
+	};
+	var addRecipeHandler = function(){
+		$('#btnAddIngredient').on('click', function(e) {
+			e.preventDefault();
 
-/* *************************************** */ 
-/* Tool Tip JS */
-/* *************************************** */  
+			var ingredientList = $('#ingredient-field'),
+				newWidgetIngredient = ingredientList.attr('data-prototype'),
+				newIngredient;
 
-$('.my-tooltip').tooltip();
+			newWidgetIngredient = newWidgetIngredient.replace(/__name__/g, options.ingcounter);
+			options.ingcounter++;
 
-/* *************************************** */ 
-/* Scroll to Top */
-/* *************************************** */  
-		
-$(document).ready(function() {
-	$(".totop").hide();
-	
-	$(window).scroll(function(){
-	if ($(this).scrollTop() > 300) {
-		$('.totop').fadeIn();
-	} else {
-		$('.totop').fadeOut();
+			newWidgetIngredient = '<h6 class="label label-warning">'+options.ingcounter+' Ingredients</h6>' + newWidgetIngredient;
+			newIngredient = $('<span class="col-md-6 col-xs-12 elem"></span>').html(newWidgetIngredient);
+			newIngredient.appendTo(ingredientList);
+		});
+	};
+	var toTopHandler = function(){
+		var btnToTop = $(".totop");
+		btnToTop.hide();
+
+		$(window).scroll(function(){
+			if ($(this).scrollTop() > 300) {
+				btnToTop.fadeIn();
+			} else {
+				btnToTop.fadeOut();
+			}
+		});
+		btnToTop.find('a').click(function(e) {
+			e.preventDefault();
+			$("html, body").animate({ scrollTop: 0 }, "slow");
+			return false;
+		});
+	};
+	return {
+		'load': init,
+		'setOption': addOption
 	}
-	});
-	$(".totop a").click(function(e) {
-		e.preventDefault();
-		$("html, body").animate({ scrollTop: 0 }, "slow");
-		return false;
-	});
-		
+};
+var InterfaceManage;
+$(document).ready(function() {
+	InterfaceManage = new UIManager();
+	InterfaceManage.load();
+
+	InterfaceManage.setOption('ingcounter', ingredientsCounter);
 });
-/* *************************************** */

@@ -1777,7 +1777,26 @@ div.ppt { display:none !important; }
 .component-content .dropdown-menu{ top: 40px }
 .component-content .dropdown-menu:after { left: 35px; }
 .component-content .dropdown-menu:before { margin-right: -3px; left: 35px; }
- 
+
+/**
+Form
+*/
+form[name='recipe'] div.recipe-field{
+	clear: both;
+	margin-top: 25px;
+}
+form[name='recipe'] #ingredient-field span.elem {
+	margin: 10px 0;
+}
+
+form[name='recipe'] .label{
+	margin: 5px 0;
+	display: block;
+	padding: 10px;
+	font-weight: bold;
+	font-size: 1em;
+}
+
 /*
  * Footer Section
  */

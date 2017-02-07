@@ -29,7 +29,7 @@ class Ingredient
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Recipe", mappedBy="ingredients")
+     * @ORM\ManyToMany(targetEntity="Recipe", mappedBy="ingredients", cascade={"persist"})
      */
     private $recipes;
 
@@ -60,13 +60,6 @@ class Ingredient
      * @ORM\Column(name="description", type="text")
      */
     private $description;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=255)
-     */
-    private $type;
 
     /**
      * Get id
