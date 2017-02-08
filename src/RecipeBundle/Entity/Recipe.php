@@ -253,13 +253,13 @@ class Recipe
     }
 
     /**
-     * Method getNumberIngredients
+     * Method getActualNumberIngredients
      *
-     * Return number of ingredients related to this Recipe
+     * Return number of ingredients related to the actual ingredients in Recipe
      *
      * @return int
      */
-    public function getNumberIngredients(){
+    public function getActualNumberIngredients(){
         return count($this->ingredients);
     }
 }

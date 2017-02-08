@@ -1,0 +1,24 @@
+{% extends "::base.html.twig" %}
+{% block body %}
+    <div class="container new">
+        {{ form_start(form) }}
+        <button class="btn btn-success" type="button" id="btnAddIngredient">Add Ingredient</button>
+        <div id="ingredient-field"
+             data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e }}">
+            {% for ingredient in form.ingredients %}
+                <span class="ingredient">
+                    {{ form_errors(ingredient) }}
+                    {{ form_widget(ingredient) }}
+                </span>
+            {% endfor %}
+        </div>
+        <div class="recipe-field">
+            <span class="label label-primary">Recipe</span>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <script type="text/javascript">
+        // keep track of how many email fields have been rendered
+        var ingredientsCounter = '{{ form.ingredients|length }}';
+    </script>
+{% endblock %}

@@ -25,15 +25,24 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
  */
 class RecipeType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder
-            ->add('name', TextType::class)
-            ->add('detailInstruction', TextareaType::class)
+    /*
             ->add('creationDate', DateTimeType::class, array(
                 'data' => new \DateTime(),
             ))
             ->add('modifyDate', DateTimeType::class, array(
                 'data' => new \DateTime(),
+            ))
+    */
+
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder
+            ->add('name', TextType::class)
+            ->add('detailInstruction', TextareaType::class)
+            ->add('creationDate', HiddenType::class, array(
+                'data' => date('Y-m-d H:i:s'),
+            ))
+            ->add('modifyDate', HiddenType::class, array(
+                'data' => date('Y-m-d H:i:s'),
             ))
             ->add('ingredients', CollectionType::class, array(
                                    'entry_type' => IngredientType::class,
