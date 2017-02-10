@@ -14,7 +14,8 @@ var UIManager = function() {
         addRecipeHandler();
     };
     var addRecipeHandler = function() {
-        var btnAddIngredient = $('#btnAddIngredient');
+        var btnAddIngredient = $('#btnAddIngredient'),
+            btnRemoveRecipe = $('#recipe_remove');
 
         btnAddIngredient.on('click', function(e) {
             e.preventDefault();
@@ -30,6 +31,12 @@ var UIManager = function() {
             newIngredient = $('<span class="col-md-6 col-xs-12 elem"></span>').html(newWidgetIngredient);
             newIngredient.appendTo(ingredientList);
         });
+        btnRemoveRecipe.on('click', function(e){
+            var recipeToRemove = parseInt($(this).attr('data-id'), 10);
+            //TODO IMPLEMENTARE
+            alert('RIMUOVERE LA RICETTA' + recipeToRemove);
+        });
+
         $(document).on('click', 'span.erase[data-action="delete-ingredient"]', function(e) {
             alert("cancello!");
         });

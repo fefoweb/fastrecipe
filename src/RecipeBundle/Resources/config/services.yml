@@ -1,4 +1,9 @@
 services:
+    app.form.type.hidden_datetime:
+          class: RecipeBundle\Form\Type\HiddenDateTimeType
+          tags:
+              - { name: form.type, alias: hidden_datetime }
 #    recipe.example:
 #        class: RecipeBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+

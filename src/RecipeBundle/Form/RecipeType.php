@@ -2,6 +2,7 @@
 namespace RecipeBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -12,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use RecipeBundle\Form\IngredientType;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use RecipeBundle\Form\Type\HiddenDateTimeType;
 
 
 /**
@@ -38,12 +40,8 @@ class RecipeType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('detailInstruction', TextareaType::class)
-            ->add('creationDate', HiddenType::class, array(
-                'data' => date('Y-m-d H:i:s'),
-            ))
-            ->add('modifyDate', HiddenType::class, array(
-                'data' => date('Y-m-d H:i:s'),
-            ))
+            ->add('creationDate', HiddenDateTimeType::class, array())
+            ->add('modifyDate', HiddenDateTimeType::class, array())
             ->add('ingredients', CollectionType::class, array(
                                    'entry_type' => IngredientType::class,
                                    'entry_options' => array(
@@ -53,11 +51,21 @@ class RecipeType extends AbstractType
                                    'allow_add' => true)
             )
             ->add('save', SubmitType::class);
+
+        if(isset($options['formtype']) && ('edit' == $options['formtype'])){
+            $builder->add('remove', ButtonType::class, array('attr' => [
+                'class' => 'btn btn-danger',
+                'data-action' => 'remove',
+                'data-id' => $options['idrecipe']
+            ]));
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-                                   'data_class' => 'RecipeBundle\Entity\Recipe'
+                                   'data_class' => 'RecipeBundle\Entity\Recipe',
+                                   'formtype' => null,
+                                   'idrecipe' => null
                                ));
     }
 

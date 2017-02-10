@@ -6,9 +6,12 @@
         <div id="ingredient-field"
              data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e }}">
             {% for ingredient in form.ingredients %}
-                <span class="ingredient">
-                    {{ form_errors(ingredient) }}
-                    {{ form_widget(ingredient) }}
+                <span class="col-md-6 col-xs-12 elem">
+                    <h6 class="label label-warning">{{ loop.index }} Ingredients <span class="erase" data-btn="action" data-action="delete-ingredient" data-id="">&times;</span></h6>
+                    <span class="ingredient">
+                        {{ form_errors(ingredient) }}
+                        {{ form_widget(ingredient) }}
+                    </span>
                 </span>
             {% endfor %}
         </div>

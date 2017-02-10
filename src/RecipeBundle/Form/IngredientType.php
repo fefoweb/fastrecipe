@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use RecipeBundle\Form\Type\HiddenDateTimeType;
 
 /**
  * Class IngredientType
@@ -34,12 +35,8 @@ class IngredientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('name', TextType::class)
-            ->add('creationDate', HiddenType::class, array(
-                'data' => date('Y-m-d H:i:s'),
-            ))
-            ->add('modifyDate', HiddenType::class, array(
-                'data' => date('Y-m-d H:i:s'),
-            ))
+            ->add('creationDate', HiddenDateTimeType::class, array())
+            ->add('modifyDate', HiddenDateTimeType::class, array())
             ->add('description', TextareaType::class);
     }
 

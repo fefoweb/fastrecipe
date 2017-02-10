@@ -1,0 +1,24 @@
+<div class="recipe-content col-md-6 col-sm-12">
+    <h4>{{ recipe.getName() }}</h4>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="recipe-item">
+                <img class="img-responsive" src="{{ asset('assets/img/dish/dish' ~ random(18) ~ '.jpg') }}" alt="" />
+            </div>
+            <p>{{ recipe.getDetailInstruction() }}</p>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="recipe-item">
+                <h5>Ingredients:</h5>
+                <ul class="list-unstyled">
+                    {% for ingredient in recipe.getIngredients() %}
+                    <li>
+                        <i class="fa fa-check"></i>{{ ingredient.getName() }} <span class="pull-right"> q.b.</span>
+                        <div class="clearfix"></div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

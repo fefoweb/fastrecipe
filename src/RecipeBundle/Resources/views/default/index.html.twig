@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div class="container">
-        Hello Recipe!
+    <div class="recipe">
+        <div class="container">
+            {% for recipe in recipes %}
+                {{ include("RecipeBundle:default:element/recipeelem.html.twig", {'recipe': recipe}) }}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
