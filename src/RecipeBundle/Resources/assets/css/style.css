@@ -1441,9 +1441,14 @@ div.ppt {
     padding-bottom: 30px;
     border-bottom: 1px dashed #ddd;
 }
+.inner-page .recipe .recipe-content p{
+    height: 70px;
+    max-height: 70px;
+}
 
 .inner-page .recipe .recipe-item img {
     border-radius: 2px;
+    max-height: 150px;
 }
 
 .inner-page .recipe h5 {

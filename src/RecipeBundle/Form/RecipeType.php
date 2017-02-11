@@ -48,6 +48,7 @@ class RecipeType extends AbstractType
                                        'attr' => array('class' => 'ingredient-box')
                                    ),
                                    'label' => false,
+                                   'mapped' => false,
                                    'allow_add' => true)
             )
             ->add('save', SubmitType::class);
@@ -56,7 +57,9 @@ class RecipeType extends AbstractType
             $builder->add('remove', ButtonType::class, array('attr' => [
                 'class' => 'btn btn-danger',
                 'data-action' => 'remove',
-                'data-id' => $options['idrecipe']
+                'data-id' => $options['idrecipe'],
+                'data-type' => 'recipe',
+                'data-where' => 'edit'
             ]));
         }
     }

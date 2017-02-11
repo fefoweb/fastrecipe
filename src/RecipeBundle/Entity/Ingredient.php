@@ -16,7 +16,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="ingredient")
  * @ORM\Entity(repositoryClass="RecipeBundle\Repository\IngredientRepository")
- * @UniqueEntity("name")
+ * @UniqueEntity(
+ *     fields="name",
+ *     message="The ingredient is already present",
+ *     entityClass="RecipeBundle:Ingredient"
+ * )
  */
 class Ingredient
 {

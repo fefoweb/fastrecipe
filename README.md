@@ -33,7 +33,7 @@ $> npm install
 8) Run client task with grunt
 
 ```shell
-$> build:deploy
+$> grunt build:deploy
 ```
 
 > Other task is managed in grunt/aliases.yaml 

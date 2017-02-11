@@ -15,7 +15,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="recipe")
  * @ORM\Entity(repositoryClass="RecipeBundle\Repository\RecipeRepository")
- * @UniqueEntity("name")
+ * @UniqueEntity(
+ *     fields="name",
+ *     message="The recipe is already present"
+ * )
  */
 class Recipe
 {
@@ -30,7 +33,7 @@ class Recipe
 
     /**
      *
-     * @ORM\ManyToMany(targetEntity="Ingredient", inversedBy="recipes", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Ingredient", inversedBy="recipes", cascade={"persist","remove"})
      * @ORM\JoinTable(
      *  name="recipe_x_ingredient",
      *  joinColumns={

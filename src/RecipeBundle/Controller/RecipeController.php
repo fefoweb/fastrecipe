@@ -2,14 +2,12 @@
 
 namespace RecipeBundle\Controller;
 
-use RecipeBundle\Entity\Ingredient;
 use RecipeBundle\Form\RecipeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use RecipeBundle\Entity\Recipe;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 class RecipeController extends Controller
 {
@@ -61,10 +59,10 @@ class RecipeController extends Controller
      */
     public function editAction(Request $request, $recipeId)
     {
+        $em = $this->getDoctrine()->getManager();
         /** @var Recipe $recipe */
-        $recipe = $this->getDoctrine()
-                       ->getRepository('RecipeBundle:Recipe')
-                       ->find($recipeId);
+        $recipe = $em->getRepository('RecipeBundle:Recipe')
+                     ->find($recipeId);
 
         if (!$recipe) {
             throw $this->createNotFoundException('No recipe found with id: '.$recipe );
@@ -78,8 +76,6 @@ class RecipeController extends Controller
         if($form->isSubmitted() && $form->isValid()){
             /** @var Recipe $data */
             $data = $form->getData();
-
-            $em = $this->getDoctrine()->getManager();
             $em->flush();
         }
 
@@ -90,7 +86,7 @@ class RecipeController extends Controller
     /**
      * Method removeAction
      *
-     * Edit a recipe
+     * Remove a recipe
      * @param Request $request
      * @param $recipeId
      * @Route("/recipe/remove/{recipeId}", name="remove_recipe", requirements={"recipeId": "\d+"})
@@ -99,8 +95,23 @@ class RecipeController extends Controller
      */
     public function removeAction(Request $request, $recipeId)
     {
+        $em = $this->getDoctrine()->getManager();
+        
+        /** @var Recipe $recipe */
+        $recipe = $em->getRepository('RecipeBundle:Recipe')
+                     ->find($recipeId);
+
+        if (!$recipe) {
+            throw $this->createNotFoundException('No recipe found with id: '.$recipeId );
+        }
+
+        $em->remove($recipe);
+        $em->flush();
+
         if ($request->isXMLHttpRequest()) {
-            return new JsonResponse(array('data' => 'this is a json response'));
+            return new JsonResponse(array('removed' => true, 'idremoved' => $recipeId, 'name' => $recipe->getName()));
+        } else {
+            return $this->redirectToRoute("list_recipe", array('messages' => 'The recipe '.$recipe->getName().' has been deleted!'));
         }
     }
 
@@ -115,15 +126,18 @@ class RecipeController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listRecipeAction()
+    public function listRecipeAction(Request $request)
     {
         /** @var array $recipes */
         $recipes = $this->getDoctrine()
             ->getRepository('RecipeBundle:Recipe')
             ->findAll();
+        
+        $messages = $request->query->get('messages');
 
         return $this->render('RecipeBundle:default:index.html.twig', [
-            'recipes' => $recipes
+            'recipes' => $recipes,
+            'messages' => $messages
         ]);
     }
 }

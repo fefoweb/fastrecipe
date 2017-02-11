@@ -21,18 +21,18 @@
         <div class="container">
             <div class="header-top">
                 <div class="row">
-                    <div class="col-md-4 col-sm-4">
+                    <div class="col-md-8 col-sm-8">
                         <div class="header-contact">
                             <span><i class="fa fa-cutlery red"></i> fast and simple recipe!</span>
                         </div>
                     </div>
-                    <div class="col-md-8 col-sm-8">
+                    <div class="col-md-4 col-sm-4">
                         <div class="header-search pull-right">
                             <form class="form" role="form">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search...">
+                                    <input type="text" class="form-control" placeholder="Search..." disabled>
                                     <span class="input-group-btn">
-											<button class="btn btn-default" type="button">
+											<button class="btn btn-default disabled" type="button">
                                                 <i class="fa fa-search"></i>
                                             </button>
                                     </span>
@@ -144,6 +144,9 @@
 <span class="totop"><a href="#"><i class="fa fa-angle-up"></i></a></span>
 
 {% block javascripts %}
+    <script type="text/javascript">
+    _BASEURL = '{{ app.request.getSchemeAndHttpHost() }}';
+    </script>
     <script src="{{ asset('assets/js/fastRecipe.min.js') }}"></script>
 {% endblock %}
 </body>
