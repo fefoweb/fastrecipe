@@ -91,6 +91,10 @@ table {
     padding: 5px 0;
 }
 
+.mar10{
+    margin: 10px 0;
+}
+
 .social a i {
     display: inline-block;
     width: 40px;
