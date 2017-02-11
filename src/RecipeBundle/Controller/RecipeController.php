@@ -2,74 +2,146 @@
 
 namespace RecipeBundle\Controller;
 
-use RecipeBundle\Entity\Ingredient;
+use RecipeBundle\Form\RecipeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use RecipeBundle\Entity\Recipe;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class RecipeController extends Controller
 {
     /**
-     * @Route("/recipe/new")
+     * Method newAction
+     *
+     * Add a recipe
+     * @param Request $request
+     * @Route("/recipe/new", name="new_recipe")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function newAction()
+    public function newAction(Request $request)
     {
-
-        $ingredient = new Ingredient();
-        $ingredient->setName('Orecchiette');
-        $ingredient->setCreationDate(new \DateTime());
-        $ingredient->setModifyDate(new \DateTime());
-        $ingredient->setDescription("Loren ipsum");
-        $ingredient->setType('Pasta');
-
-        $ingredient2 = new Ingredient();
-        $ingredient2->setName('Broccoletti');
-        $ingredient2->setCreationDate(new \DateTime());
-        $ingredient2->setModifyDate(new \DateTime());
-        $ingredient2->setDescription("Loren ipsum");
-        $ingredient2->setType('Verdura');
-
+        /** @var Recipe $recipe */
         $recipe = new Recipe();
-        $recipe->setName("Orecchiette al pesto");
-        $recipe->setCreationDate(new \DateTime());
-        $recipe->setModifyDate(new \DateTime());
-        $recipe->setDetailInstruction("sdfsdfasdfas");
-        $recipe->addIngredient($ingredient);
-        $recipe->addIngredient($ingredient2);
+        $form = $this->createForm(RecipeType::class, $recipe, array(
+            'formtype' => 'new'
+        ));
+        $form->handleRequest($request);
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($ingredient);
-        $em->persist($ingredient2);
-        $em->persist($recipe);
-        $em->flush();
+        if($form->isSubmitted() && $form->isValid()){
+            /** @var Recipe $data */
+            $data = $form->getData();
+            $nIngredients = $data->getActualNumberIngredients();
+            $data->setIngredientsNumber($nIngredients);
 
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($data);
+            $em->flush();
 
-        return $this->render('RecipeBundle:Recipe:new.html.twig', [
-            'inserted' => sprintf(  'Saved ingredient: %s[%d] | Saved recipe: %s[%d]',
-                                   $ingredient->getName().''.$ingredient2->getName(), $ingredient->getId()."-".$ingredient2->getId(),
-                                   $recipe->getName(), $recipe->getId()
-                                 )
+            return $this->redirectToRoute("list_recipe", array('messages' => 'The recipe '.$recipe->getName().' has been added!'));
+        }
+
+        return $this->render('RecipeBundle:recipe:new.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/recipe/edit")
+     * Method editAction
+     *
+     * Edit a recipe
+     * @param Request $request
+     * @param $recipeId
+     * @Route("/recipe/edit/{recipeId}", name="edit_recipe", requirements={"recipeId": "\d+"})
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function editAction()
+    public function editAction(Request $request, $recipeId)
     {
-        return $this->render('RecipeBundle:Recipe:edit.html.twig', array(
-            // ...
+        $em = $this->getDoctrine()->getManager();
+        /** @var Recipe $recipe */
+        $recipe = $em->getRepository('RecipeBundle:Recipe')
+                     ->find($recipeId);
+
+        if (!$recipe) {
+            throw $this->createNotFoundException('No recipe found with id: '.$recipe );
+        }
+        $form = $this->createForm(RecipeType::class, $recipe, array(
+            'formtype' => 'edit',
+            'idrecipe' => $recipe->getId()
         ));
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            /** @var Recipe $data */
+            $data = $form->getData();
+            $data->setModifyDate(new \DateTime('now'));
+            $data->setModifyDateIngredients();
+            $em->flush();
+
+            return $this->redirectToRoute("list_recipe", array('messages' => 'The recipe '.$recipe->getName().' has been updated!'));
+        }
+
+        return $this->render('RecipeBundle:recipe:edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+    /**
+     * Method removeAction
+     *
+     * Remove a recipe
+     * @param Request $request
+     * @param $recipeId
+     * @Route("/recipe/remove/{recipeId}", name="remove_recipe", requirements={"recipeId": "\d+"})
+     *
+     * @return JsonResponse
+     */
+    public function removeAction(Request $request, $recipeId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        /** @var Recipe $recipe */
+        $recipe = $em->getRepository('RecipeBundle:Recipe')
+                     ->find($recipeId);
+
+        if (!$recipe) {
+            throw $this->createNotFoundException('No recipe found with id: '.$recipeId );
+        }
+
+        $em->remove($recipe);
+        $em->flush();
+
+        if ($request->isXMLHttpRequest()) {
+            return new JsonResponse(array('removed' => true, 'idremoved' => $recipeId, 'name' => $recipe->getName()));
+        } else {
+            return $this->redirectToRoute("list_recipe", array('messages' => 'The recipe '.$recipe->getName().' has been deleted!'));
+        }
     }
 
     /**
-     * @Route("/recipe/remove")
+     * @Route("/recipe/list", name="list_recipe")
      */
-    public function removeAction()
+    /**
+     * Method listRecipeAction
+     *
+     * List all recipes
+     * @Route("/recipe/list", name="list_recipe")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function listRecipeAction(Request $request)
     {
-        return $this->render('RecipeBundle:Recipe:remove.html.twig', array(
-            // ...
-        ));
-    }
+        /** @var array $recipes */
+        $recipes = $this->getDoctrine()
+            ->getRepository('RecipeBundle:Recipe')
+            ->findAll();
+        
+        $messages = $request->query->get('messages');
 
+        return $this->render('RecipeBundle:default:listing.html.twig', [
+            'recipes' => $recipes,
+            'messages' => $messages
+        ]);
+    }
 }

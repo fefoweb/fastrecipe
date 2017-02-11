@@ -1,0 +1,31 @@
+{% extends "::base.html.twig" %}
+{% form_theme form 'RecipeBundle:form:fields.html.twig' %}
+{% block body %}
+    <div class="container new">
+        {{ form_start(form) }}
+        <button class="btn btn-success" type="button" id="btnAddIngredient">Add Ingredient</button>
+        <div id="ingredient-field"
+             data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e }}">
+            {% if not form.ingredients.vars.valid %}
+                {{ form_errors(form.ingredients) }}
+            {% endif %}
+            {% for ingredient in form.ingredients %}
+                <span class="col-md-6 col-xs-12 elem" data-id-ingredient="{{ ingredient.vars.value.id }}" data-num="{{ loop.index }}">
+                    <h6 class="label label-warning">{{ loop.index }} Ingredients <span class="erase" data-btn="action" data-action="delete-ingredient" data-id="{{ ingredient.vars.value.id }}" data-num="{{ loop.index }}">&times;</span></h6>
+                    <span class="ingredient{% if not form.ingredients.vars.valid %} has-error{% endif %}">
+                        {{ form_errors(ingredient) }}
+                        {{ form_widget(ingredient) }}
+                    </span>
+                </span>
+            {% endfor %}
+        </div>
+        <div class="recipe-field">
+            <span class="label label-primary">Recipe</span>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <script type="text/javascript">
+        // keep track of how many email fields have been rendered
+        var ingredientsCounter = '{{ form.ingredients|length }}';
+    </script>
+{% endblock %}

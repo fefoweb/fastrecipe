@@ -3,6 +3,9 @@
 namespace RecipeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use RecipeBundle\Form\Validator\Constraint as RecipeConstraint;
 
 /**
  * Class Recipe
@@ -14,6 +17,10 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="recipe")
  * @ORM\Entity(repositoryClass="RecipeBundle\Repository\RecipeRepository")
+ * @UniqueEntity(
+ *     fields="name",
+ *     message="The recipe is already present"
+ * )
  */
 class Recipe
 {
@@ -27,12 +34,8 @@ class Recipe
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Ingredient", mappedBy="recipe")
-     */
-
-    /**
      *
-     * @ORM\ManyToMany(targetEntity="Ingredient", inversedBy="recipes")
+     * @ORM\ManyToMany(targetEntity="Ingredient", inversedBy="recipes", cascade={"persist","remove"})
      * @ORM\JoinTable(
      *  name="recipe_x_ingredient",
      *  joinColumns={
@@ -41,6 +44,10 @@ class Recipe
      *  inverseJoinColumns={
      *      @ORM\JoinColumn(name="ingredient_id", referencedColumnName="id")
      *  }
+     * )
+     * @RecipeConstraint\UniqueCollection(propertyPath ="name")
+     * @Assert\Valid(
+     *    traverse = true
      * )
      */
     private $ingredients;
@@ -253,4 +260,31 @@ class Recipe
     {
         return $this->ingredients;
     }
+
+    /**
+     * Method getActualNumberIngredients
+     *
+     * Return number of ingredients related to the actual ingredients in Recipe
+     *
+     * @return int
+     */
+    public function getActualNumberIngredients(){
+        return count($this->ingredients);
+    }
+
+    /**
+     * Method setModifyDateIngredients
+     *
+     * Modification about all Ingredients dateModify
+     *
+     */
+    public function setModifyDateIngredients(){
+        $ingredients = $this->getIngredients();
+
+        /** @var Ingredient $ingredient */
+        foreach($ingredients as $ingredient){
+            $ingredient->setModifyDate(new \DateTime('now'));
+        }
+    }
+
 }

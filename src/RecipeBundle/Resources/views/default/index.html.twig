@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="recipe">
+        <div class="container">
+            <div class="component-content">
+                <h1>Last Recipe listed</h1>
+            </div>
+            {% for recipe in recipes %}
+                {{ include("RecipeBundle:default:element/recipeelem.html.twig", {'recipe': recipe}) }}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

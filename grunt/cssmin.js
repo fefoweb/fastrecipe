@@ -6,6 +6,7 @@ module.exports = {
     frontend: {
         files: {
             '<%= assetBuildDir %>css/<%= pkg.name %>.min.css': [
+                '<%= recipeAssetsDir %>css/components/jquery-ui.css',
                 '<%= recipeAssetsDir %>css/components/bootstrap.min.css',
                 '<%= recipeAssetsDir %>css/components/prettyPhoto.min.css',
                 '<%= recipeAssetsDir %>css/components/font-awesome.min.css',

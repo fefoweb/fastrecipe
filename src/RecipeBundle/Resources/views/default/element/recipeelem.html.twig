@@ -1,0 +1,31 @@
+<div class="recipe-content col-md-6 col-sm-12" data-recipe-id="{{ recipe.getId() }}">
+    <h4>{{ recipe.getName() }}</h4>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="recipe-item">
+                {% set imgrandom = random(17) + 1 %}
+                <a href="{{ path('edit_recipe', {'recipeId': recipe.getId()}) }}">
+                    <img class="img-responsive" src="{{ asset('assets/img/dish/dish' ~ imgrandom ~ '.jpg') }}" alt="" />
+                </a>
+            </div>
+            <p>{{ recipe.getDetailInstruction() | slice(0, 100) ~ '...' }}</p>
+            <span>
+                <button class="btn btn-warning" data-action="edit" data-id="{{ recipe.getId() }}" data-type="recipe">EDIT</button> ~ 
+                <button class="btn btn-danger" data-action="remove" data-id="{{ recipe.getId() }}" data-type="recipe" data-where="listing">REMOVE</button>
+            </span>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="recipe-item">
+                <h5>Ingredients:</h5>
+                <ul class="list-unstyled">
+                    {% for ingredient in recipe.getIngredients() %}
+                    <li>
+                        <i class="fa fa-check"></i>{{ ingredient.getName() }} <span class="pull-right"> q.b.</span>
+                        <div class="clearfix"></div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

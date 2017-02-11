@@ -1,0 +1,15 @@
+{% block form_errors -%}
+    {% if errors|length > 0 -%}
+        {% if form.parent %}<div class="mar10 alert alert-danger alert-dismissible">{% else %}<div class="mar10 alert alert-danger alert-dismissible">{% endif %}
+        {%- for error in errors -%}
+            <span class="glyphicon glyphicon-exclamation-sign"></span> {{ error.message }}
+        {%- endfor -%}
+        {% if form.parent %}</div>{% else %}</div>{% endif %}
+    {%- endif %}
+{%- endblock form_errors %}
+
+{% block button_row -%}
+    <div class="form-group {% if attr and attr['data-parent-class'] %}{{ attr['data-parent-class'] }}{% endif %}">
+        {{- form_widget(form) -}}
+    </div>
+{%- endblock button_row %}
