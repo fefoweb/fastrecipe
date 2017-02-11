@@ -1,10 +1,18 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div class="container listing">
-        <ul>
-        {% for recipe in recipes %}
-            <li><strong>{{ recipe.name }}</strong> - {{ recipe.desc }}: {{ recipe.ing }}</li>
-        {% endfor %}
-        </ul>
+    <div class="recipe">
+        <div class="container">
+            <div class="component-content">
+                <h4>All recipes...</h4>
+            </div>
+            {% if messages %}
+            <div class="alert alert-dismissible alert-info">
+                {{ messages }}
+            </div>
+            {% endif %}
+            {% for recipe in recipes %}
+                {{ include("RecipeBundle:default:element/recipeelem.html.twig", {'recipe': recipe}) }}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

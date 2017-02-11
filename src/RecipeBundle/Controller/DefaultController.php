@@ -15,7 +15,7 @@ class DefaultController extends Controller
         /** @var array $recipes */
         $recipes = $this->getDoctrine()
                     ->getRepository('RecipeBundle:Recipe')
-                    ->findBy(array(), array(), 2, null);
+                    ->findBy(array(), array('modifyDate' => 'DESC'), 2, null);
 
         return $this->render('RecipeBundle:default:index.html.twig', [
             'recipes' => $recipes

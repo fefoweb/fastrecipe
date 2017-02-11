@@ -4,17 +4,12 @@ namespace RecipeBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use RecipeBundle\Form\IngredientType;
-use Symfony\Component\Validator\Constraints\DateTime;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use RecipeBundle\Form\Type\HiddenDateTimeType;
-
 
 /**
  * Class RecipeType
@@ -27,15 +22,6 @@ use RecipeBundle\Form\Type\HiddenDateTimeType;
  */
 class RecipeType extends AbstractType
 {
-    /*
-            ->add('creationDate', DateTimeType::class, array(
-                'data' => new \DateTime(),
-            ))
-            ->add('modifyDate', DateTimeType::class, array(
-                'data' => new \DateTime(),
-            ))
-    */
-
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('name', TextType::class)
@@ -48,8 +34,9 @@ class RecipeType extends AbstractType
                                        'attr' => array('class' => 'ingredient-box')
                                    ),
                                    'label' => false,
-                                   'mapped' => false,
-                                   'allow_add' => true)
+                                   'allow_add' => true,
+                                   'error_bubbling' => false
+                               )
             )
             ->add('save', SubmitType::class);
 

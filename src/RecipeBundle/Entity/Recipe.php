@@ -4,6 +4,7 @@ namespace RecipeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Recipe
@@ -42,6 +43,9 @@ class Recipe
      *  inverseJoinColumns={
      *      @ORM\JoinColumn(name="ingredient_id", referencedColumnName="id")
      *  }
+     * )
+     * @Assert\Valid(
+     *    traverse = true
      * )
      */
     private $ingredients;

@@ -33,6 +33,7 @@ var UIManager = function() {
             newIngredient.appendTo(ingredientList);
         });
         btnRemove.on('click', function (e) {
+            e.preventDefault();
             var recipeToRemove = parseInt($(this).attr('data-id'), 10) || null,
                 typeRemove = $(this).attr('data-type') || 'recipe',
                 whereRemove = $(this).attr('data-where') || 'listing',
@@ -68,6 +69,7 @@ var UIManager = function() {
         });
 
         btnEdit.on('click', function (e) {
+            e.preventDefault();
             var recipeToEdit = parseInt($(this).attr('data-id'), 10) || null;
             if(null !== recipeToEdit){
                 window.location.href = options.basepath + '/recipe/edit/' + recipeToEdit;
@@ -75,6 +77,7 @@ var UIManager = function() {
         });
 
         $(document).on('click', 'span.erase[data-action="delete-ingredient"]', function(e) {
+            e.preventDefault();
             var ingredientToRemove = parseInt($(this).attr('data-id'), 10) || null,
                 idxIngredient = parseInt($(this).attr('data-num'), 10) || null,
                 urlRemoveIngredient = options.basepath + '/ingredient/remove/',

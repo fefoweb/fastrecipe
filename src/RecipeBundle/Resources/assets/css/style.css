@@ -1449,6 +1449,7 @@ div.ppt {
 .inner-page .recipe .recipe-item img {
     border-radius: 2px;
     max-height: 150px;
+    min-height: 150px;
 }
 
 .inner-page .recipe h5 {

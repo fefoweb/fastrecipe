@@ -39,7 +39,7 @@ class RecipeController extends Controller
             $em->persist($data);
             $em->flush();
 
-            return $this->redirectToRoute("home");
+            return $this->redirectToRoute("list_recipe", array('messages' => 'The recipe '.$recipe->getName().' has been added!'));
         }
 
         return $this->render('RecipeBundle:recipe:new.html.twig', [
@@ -77,6 +77,8 @@ class RecipeController extends Controller
             /** @var Recipe $data */
             $data = $form->getData();
             $em->flush();
+
+            return $this->redirectToRoute("list_recipe", array('messages' => 'The recipe '.$recipe->getName().' has been updated!'));
         }
 
         return $this->render('RecipeBundle:recipe:edit.html.twig', [
@@ -135,7 +137,7 @@ class RecipeController extends Controller
         
         $messages = $request->query->get('messages');
 
-        return $this->render('RecipeBundle:default:index.html.twig', [
+        return $this->render('RecipeBundle:default:listing.html.twig', [
             'recipes' => $recipes,
             'messages' => $messages
         ]);
