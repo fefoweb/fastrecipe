@@ -38,12 +38,18 @@ class RecipeType extends AbstractType
                                    'error_bubbling' => false
                                )
             )
-            ->add('save', SubmitType::class);
+            ->add('save', SubmitType::class, array(
+                'attr' => [
+                    'class' => 'btn btn-success',
+                    'data-parent-class' => 'boxBtnRecipeSave'
+                ]
+            ));
 
         if(isset($options['formtype']) && ('edit' == $options['formtype'])){
             $builder->add('remove', ButtonType::class, array('attr' => [
                 'class' => 'btn btn-danger',
                 'data-action' => 'remove',
+                'data-parent-class' => 'boxBtnRecipeRemove',
                 'data-id' => $options['idrecipe'],
                 'data-type' => 'recipe',
                 'data-where' => 'edit'

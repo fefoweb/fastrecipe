@@ -10,7 +10,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use RecipeBundle\Form\Transformer\DateTimeToString;
 
-
 /**
  * Class HiddenDateTimeType
  * @package Symfony\Component\Form\Type

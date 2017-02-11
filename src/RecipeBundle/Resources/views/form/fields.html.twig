@@ -7,3 +7,9 @@
         {% if form.parent %}</div>{% else %}</div>{% endif %}
     {%- endif %}
 {%- endblock form_errors %}
+
+{% block button_row -%}
+    <div class="form-group {% if attr and attr['data-parent-class'] %}{{ attr['data-parent-class'] }}{% endif %}">
+        {{- form_widget(form) -}}
+    </div>
+{%- endblock button_row %}

@@ -76,6 +76,8 @@ class RecipeController extends Controller
         if($form->isSubmitted() && $form->isValid()){
             /** @var Recipe $data */
             $data = $form->getData();
+            $data->setModifyDate(new \DateTime('now'));
+            $data->setModifyDateIngredients();
             $em->flush();
 
             return $this->redirectToRoute("list_recipe", array('messages' => 'The recipe '.$recipe->getName().' has been updated!'));

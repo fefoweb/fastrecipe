@@ -271,4 +271,20 @@ class Recipe
     public function getActualNumberIngredients(){
         return count($this->ingredients);
     }
+
+    /**
+     * Method setModifyDateIngredients
+     *
+     * Modification about all Ingredients dateModify
+     *
+     */
+    public function setModifyDateIngredients(){
+        $ingredients = $this->getIngredients();
+
+        /** @var Ingredient $ingredient */
+        foreach($ingredients as $ingredient){
+            $ingredient->setModifyDate(new \DateTime('now'));
+        }
+    }
+
 }
