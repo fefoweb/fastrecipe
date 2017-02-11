@@ -10,7 +10,7 @@ module.exports = {
         files: {
             '<%= assetBuildDir %>js/<%= pkg.name %>.min.js': [
                 '<%= nodeModulesDir %>jquery/dist/jquery.min.js',
-                '<%= nodeModulesDir %>jquery-ui-dist/jquery-ui.min.js',
+                '<%= recipeAssetsDir %>js/lib/jquery-ui.js',
                 '<%= recipeAssetsDir %>js/lib/bootstrap.min.js',
                 '<%= recipeAssetsDir %>js/lib/jquery.prettyPhoto.js',
                 '<%= recipeAssetsDir %>js/lib/respond.min.js',

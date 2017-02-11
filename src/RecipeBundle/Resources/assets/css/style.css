@@ -1470,6 +1470,10 @@ div.ppt {
     border-top: 1px dashed #ecdd94;
 }
 
+.ui-autocomplete-loading {
+    background: white url("../img/spin.svg") 98% center no-repeat;
+}
+
 .inner-page .recipe .recipe-item ul li:first-child {
     border-top: 0;
 }

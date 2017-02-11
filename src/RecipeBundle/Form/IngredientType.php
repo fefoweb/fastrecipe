@@ -22,7 +22,9 @@ class IngredientType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, array(
+                'attr' => array('class' => 'ingredient_name')
+            ))
             ->add('creationDate', HiddenDateTimeType::class, array())
             ->add('modifyDate', HiddenDateTimeType::class, array())
             ->add('description', TextareaType::class);

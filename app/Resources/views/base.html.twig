@@ -13,7 +13,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/fastRecipe.min.css') }}" />
         <!--[if IE]><link rel="stylesheet" href="{{ asset('assets/css/ie-style.css') }}"><![endif]-->
     {% endblock %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('asset/img/favicon.ico') }}"/>
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}"/>
 </head>
 <body>
 <div class="wrapper">
@@ -146,6 +146,7 @@
 {% block javascripts %}
     <script type="text/javascript">
     _BASEURL = '{{ app.request.getSchemeAndHttpHost() }}';
+    _INGREDIENT_AUTOCOMPLETE =  "{{ path('ingredient_find') }}";
     </script>
     <script src="{{ asset('assets/js/fastRecipe.min.js') }}"></script>
 {% endblock %}

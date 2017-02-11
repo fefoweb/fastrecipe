@@ -16,11 +16,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="ingredient")
  * @ORM\Entity(repositoryClass="RecipeBundle\Repository\IngredientRepository")
- * @UniqueEntity(
- *     fields="name",
- *     message="The ingredient is already present"
- * )
  */
+//* @UniqueEntity(
+// *     fields="name",
+// *     message="The ingredient is already present"
+//    * )
 class Ingredient
 {
     /**
@@ -40,7 +40,7 @@ class Ingredient
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=255)
      * @Assert\NotBlank()
      */
     private $name;
@@ -65,6 +65,14 @@ class Ingredient
      * @ORM\Column(name="description", type="text")
      */
     private $description;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->recipes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -243,13 +251,6 @@ class Ingredient
     {
         return $this->quantity;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->recipes = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add recipe
@@ -283,5 +284,15 @@ class Ingredient
     public function getRecipes()
     {
         return $this->recipes;
+    }
+
+    /**
+     * Method __toString
+     **
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

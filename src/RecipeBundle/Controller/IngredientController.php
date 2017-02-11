@@ -45,5 +45,39 @@ class IngredientController extends Controller
         }
 
     }
+    /**
+     * Method findAction
+     *
+     * Remove an ingredient
+     * @param Request $request
+     * @Route("/ingredient/find", name="ingredient_find")
+     *
+     * @return JsonResponse
+     */
+    public function findAction(Request $request) {
+        $names = array();
+        $term = trim(strip_tags($request->get('term')));
+
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('RecipeBundle:Ingredient')->createQueryBuilder('ing')
+                        ->where('ing.name LIKE :name')
+                        ->setParameter('name', '%'.$term.'%')
+                        ->getQuery()
+                        ->getResult();
+
+        /** @var Ingredient $entity */
+        foreach ($entities as $entity)
+        {
+            $names[] = $entity->getName();
+        }
+
+        $names = array_unique($names);
+
+        $response = new JsonResponse();
+        $response->setData($names);
+
+        return $response;
+    }
 
 }

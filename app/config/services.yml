@@ -3,7 +3,14 @@
 parameters:
 
 
-services:
+#services:
 #    service_name:
 #        class: RecipeBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+services:
+  recipebundle.unique_collection:
+    class: RecipeBundle\Form\Validator\UniqueCollectionValidator
+    arguments: ["@request_stack"]
+    tags:
+      - { name: validator.constraint_validator, alias: unique_collection }

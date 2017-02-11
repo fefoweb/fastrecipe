@@ -12,6 +12,7 @@ var UIManager = function() {
         toTopHandler();
         $('.my-tooltip').tooltip();
         addRecipeHandler();
+        addAutocompleteHandler();
     };
     var addRecipeHandler = function() {
         var btnAddIngredient = $('#btnAddIngredient'),
@@ -96,6 +97,7 @@ var UIManager = function() {
                         if (!!data.removed) {
                             $('span.elem[data-id-ingredient="' + ingredientToRemove + '"]').fadeOut(300, function () {
                                 $(this).remove();
+                                $('.alert.alert-info').fadeOut();
                             });
                         }
                     }).fail(function (jqXHR, textStatus) {
@@ -113,6 +115,24 @@ var UIManager = function() {
             }
         });
     };
+
+    var addAutocompleteHandler = function(){
+        function log( message ) {
+            console.log(message);
+        }
+        $(document).on('keydown', '.ingredient_name', function(e){
+            $(this).autocomplete({
+                source: options.autocompleteIngredientUrl,
+                minLength: 2,
+                select: function( event, ui ) {
+                    log( ui.item ?
+                    'Selected: ' + ui.item.value:
+                    'Nothing selected, input was ' + $(this).val() );
+                }
+            });
+        });
+    };
+
     var toTopHandler = function() {
         var btnToTop = $(".totop");
         btnToTop.hide();
@@ -144,4 +164,5 @@ $(document).ready(function() {
         InterfaceManage.setOption('ingcounter', ingredientsCounter);
     }
     InterfaceManage.setOption('basepath', _BASEURL);
+    InterfaceManage.setOption('autocompleteIngredientUrl', _INGREDIENT_AUTOCOMPLETE);
 });
