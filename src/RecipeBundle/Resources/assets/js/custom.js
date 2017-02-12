@@ -13,7 +13,11 @@ var UIManager = function() {
         $('.my-tooltip').tooltip();
         addRecipeHandler();
         addAutocompleteHandler();
+        addSearchHandler();
     };
+    /**
+     * Recipe event handler
+     */
     var addRecipeHandler = function() {
         var btnAddIngredient = $('#btnAddIngredient'),
             btnRemove = $('button[data-action="remove"]'),
@@ -115,7 +119,9 @@ var UIManager = function() {
             }
         });
     };
-
+    /**
+     * Autocomplete handler
+     */
     var addAutocompleteHandler = function(){
         function log( message ) {
             console.log(message);
@@ -132,7 +138,38 @@ var UIManager = function() {
             });
         });
     };
+    /**
+     * Search handler
+     */
+    var addSearchHandler = function(){
+        var btnSearch = $('#btnSearch'),
+            inputSearch = $('#txtSearch'),
+            searchFnc = function(){
+                var query = inputSearch.val() || null;
 
+                if(null !== query){
+                    window.location.href = options.basepath + '/recipe/list/' + query;
+                } else {
+                    window.location.href = options.basepath + '/recipe/list';
+                }
+            };
+
+
+        inputSearch.on('keydown', function(e) {
+            if (e.which == 13) {
+                e.preventDefault();
+                searchFnc();
+            }
+        });
+
+        btnSearch.on('click', function (e) {
+            e.preventDefault();
+            searchFnc();
+        });
+    };
+    /**
+     * Animation to top handler
+     */
     var toTopHandler = function() {
         var btnToTop = $(".totop");
         btnToTop.hide();
@@ -150,6 +187,9 @@ var UIManager = function() {
             return false;
         });
     };
+    /**
+     * Module return expose method
+     */
     return {
         'load': init,
         'setOption': addOption
