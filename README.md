@@ -1,7 +1,10 @@
 fastRecipe
 ==========
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/8d8390f3-25f2-4037-9c90-3805d0149a7a/small.png)](https://insight.sensiolabs.com/projects/8d8390f3-25f2-4037-9c90-3805d0149a7a)
+
 A Symfony project to manage Recipe in fast and useful ways!
+
 [Some Example](example.md)
 
 #### To Build
