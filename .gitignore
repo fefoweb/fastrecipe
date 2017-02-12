@@ -15,5 +15,6 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+/web/assets/*
 composer.lock
 node_modules/

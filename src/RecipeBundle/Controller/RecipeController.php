@@ -118,30 +118,43 @@ class RecipeController extends Controller
             return $this->redirectToRoute("list_recipe", array('messages' => 'The recipe '.$recipe->getName().' has been deleted!'));
         }
     }
-
-    /**
-     * @Route("/recipe/list", name="list_recipe")
-     */
     /**
      * Method listRecipeAction
      *
      * List all recipes
-     * @Route("/recipe/list", name="list_recipe")
+     * @Route("/recipe/list/{query}", name="list_recipe", requirements={"query": ".*"})
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listRecipeAction(Request $request)
+    public function listRecipeAction(Request $request, $query = null)
     {
-        /** @var array $recipes */
-        $recipes = $this->getDoctrine()
-            ->getRepository('RecipeBundle:Recipe')
-            ->findAll();
-        
+        if(empty(trim($query))){
+            /** @var array $recipes */
+            $recipes = $this->getDoctrine()
+                ->getRepository('RecipeBundle:Recipe')
+                ->findAll();
+
+            $title = "All recipes...";
+        } else {
+            $aQuery = preg_split( "/(\\s|-|#)/", $query );
+            $queryBuilder = $this->getDoctrine()->getRepository('RecipeBundle:Recipe')->createQueryBuilder('r');
+
+            $or = $queryBuilder->expr()->orx();
+            foreach($aQuery as $key => $criteria){
+                $or->add($queryBuilder->expr()->like("(r.name", ":recipename)" ));
+                $queryBuilder->setParameter('recipename', "%{$criteria}%");
+            }
+            $queryBuilder->where($or);
+            $recipes = $queryBuilder->getQuery()->getResult();
+
+            $title = "You searched for [".implode(',', $aQuery)."]";
+        }
         $messages = $request->query->get('messages');
 
         return $this->render('RecipeBundle:default:listing.html.twig', [
             'recipes' => $recipes,
-            'messages' => $messages
+            'messages' => $messages,
+            'title_listing' => $title
         ]);
     }
 }
