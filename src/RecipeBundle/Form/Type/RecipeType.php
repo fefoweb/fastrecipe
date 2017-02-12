@@ -1,5 +1,5 @@
 <?php
-namespace RecipeBundle\Form;
+namespace RecipeBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
@@ -13,7 +13,7 @@ use RecipeBundle\Form\Type\HiddenDateTimeType;
 
 /**
  * Class RecipeType
- * @package RecipeBundle\Form
+ * @package RecipeBundle\Form\Type
  *
  * Recipe form type
  * Project: fastRecipe

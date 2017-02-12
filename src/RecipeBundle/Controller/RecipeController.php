@@ -2,7 +2,7 @@
 
 namespace RecipeBundle\Controller;
 
-use RecipeBundle\Form\RecipeType;
+use RecipeBundle\Form\Type\RecipeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use RecipeBundle\Entity\Recipe;

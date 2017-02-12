@@ -1,5 +1,5 @@
 <?php
-namespace RecipeBundle\Form;
+namespace RecipeBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -10,7 +10,7 @@ use RecipeBundle\Form\Type\HiddenDateTimeType;
 
 /**
  * Class IngredientType
- * @package RecipeBundle\Form
+ * @package RecipeBundle\Form\Type
  *
  * Ingredient form type
  * Project: fastRecipe

@@ -1,5 +1,6 @@
 {
     "name": "fefo/fastrecipe",
+    "description" : "A Symfony project to manage Recipe in fast and useful ways!",
     "license": "proprietary",
     "type": "project",
     "autoload": {
