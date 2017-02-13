@@ -13,7 +13,7 @@
     </php>
 
     <testsuites>
-        <testsuite name="Project Test Suite">
+        <testsuite name="fastRecipe Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
@@ -22,7 +22,6 @@
         <whitelist>
             <directory>src</directory>
             <exclude>
-                <directory>src/*Bundle/Resources</directory>
                 <directory>src/*/*Bundle/Resources</directory>
                 <directory>src/*/Bundle/*Bundle/Resources</directory>
             </exclude>
